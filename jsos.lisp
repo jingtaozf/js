@@ -606,7 +606,10 @@
   (let* ((cls (ensure-fobj-cls func))
          (this (if (cfobj-p func) (funcall (cfobj-make-new func) cls) (make-obj cls)))
          (result (apply (the function (proc func)) this args)))
-    (if (obj-p result) result this)))
+    (if (obj-p result)
+      result
+      ;; if `this' is null, then use `result', this can make user initialize lisp object in constructor.
+      (or this result))))
 
 (defun ensure-fobj-cls (fobj)
   (let ((proto (js-prop fobj "prototype"))) ;; Active property in function prototype ensures this is always bound
