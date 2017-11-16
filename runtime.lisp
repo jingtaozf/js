@@ -40,7 +40,7 @@
                      ((integerp val) (princ-to-string val))
                      (t (format nil "~,,,,,,'eE" val))))
     (boolean (if val "true" "false"))
-    (symbol (ecase val (:undefined "undefined") (:null "null")))
+    (symbol (case val (:undefined "undefined") (:null "null") (t (princ-to-string val))))
     (obj (to-string (default-value val :string)))
     (t (js-to-string val))))
 
