@@ -82,7 +82,7 @@
 
 (defmethod print-object ((obj obj) stream)
   (let ((*print-circle* t))
-    (format stream "#<js obj {")
+    (format stream "#<js obj ~a{" (obj-cls obj))
     (let ((output (make-sequence-printer stream)))
       (js-for-in obj
                  (lambda (key)

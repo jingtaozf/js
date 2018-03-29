@@ -181,6 +181,7 @@
 (defun write-json-number (number stream)
   (typecase number
     (integer (write number :stream stream))
+    (single-float (format stream "~,,,,,,'eE" number))
     (double-float (format stream "~,,,,,,'eE" number))
     (t (write-string (ecase number (:NaN "NaN") (:Inf "Infinity") (:-Inf "-Infinity")) stream))))
 
